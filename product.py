@@ -50,3 +50,5 @@ class Product:
         self.__price_checker(value) 
         self.price = value
         
+        
+        
