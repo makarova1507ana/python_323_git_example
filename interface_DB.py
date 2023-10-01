@@ -9,8 +9,19 @@ list_products = [('стул', 500 ,'мебель для зала '), ('стол'
 
 # имитацию прохождения через файл product.py -> объект типа product
 
+
+# ('стул', 500 ,'мебель для зала ') -> объект типа product
+
+
 # объект типа product-> добавить в таблицу
 
+
+
+# прототип функции 
+def add_product():# добалениe Товарa
+    pname, price, types = '0', 0, '0' 
+    return f"INSERT INTO products (pname, price, types) VALUES ('{pname}', {price}, '{types}')"
+  
    
 with sq.connect("Shop.db") as con:
     cur = con.cursor()
@@ -24,9 +35,11 @@ with sq.connect("Shop.db") as con:
     
 # ----------------------Интерфейс по добалению,редактированию и удаления записей в талице------------------------------#
     # Функция добаления
-    cur.executescript("""
-                      """)
+    cur.executescript(add_product())
     
+    result = cur.execute("SELECT * FROM products;")
+    print(result.fetchall())
+
     # Функция редактирование товара
     
     # Функция удаления товара
