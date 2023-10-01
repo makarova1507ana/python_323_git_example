@@ -3,23 +3,19 @@
 # Создать класс товар (имя, цена, тип)
 
 import sqlite3 as sq
-
+from product import Product 
 #
 list_products = [('стул', 500 ,'мебель для зала '), ('стол', 1500 ,'мебель для зала '), ('диван', 20000 ,'мебель для зала ')]
 
-# имитацию прохождения через файл product.py -> объект типа product
+#  прохождения через файл product.py -> объект типа product
 
 
 # ('стул', 500 ,'мебель для зала ') -> объект типа product
 
 
 # объект типа product-> добавить в таблицу
-
-
-
-# прототип функции 
-def add_product():# добалениe Товарa
-    pname, price, types = '0', 0, '0' 
+def add_product(product):# добалениe Товарa
+    pname, price, types = product.name, product.price, product.types 
     return f"INSERT INTO products (pname, price, types) VALUES ('{pname}', {price}, '{types}')"
   
    
@@ -34,8 +30,11 @@ with sq.connect("Shop.db") as con:
             types TEXT NOT NULL); """)
     
 # ----------------------Интерфейс по добалению,редактированию и удаления записей в талице------------------------------#
-    # Функция добаления
-    cur.executescript(add_product())
+    for product in list_products: # product = ('стул', 500 ,'мебель для зала ')
+        product = Product(product[0], product[1], product[2]) # product = Product('стул', 500 ,'мебель для зала ')
+        
+        # Функция добаления
+        cur.executescript(add_product(product))
     
     result = cur.execute("SELECT * FROM products;")
     print(result.fetchall())
